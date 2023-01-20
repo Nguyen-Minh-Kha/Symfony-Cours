@@ -146,4 +146,25 @@ class PizzaController extends AbstractController
             'pizza'=> $pizza,
         ]);
     }
+
+    /**
+     * @Route("/pizza/{id}/supprimer" , name="app_pizza_remove")
+     */
+    public function remove (int $id, PizzaRepository $repository, Request $request):Response
+    {
+
+        //récuperer le pizza depuis la base de données
+        $pizza= $repository->find($id);
+
+        //je supprime la pizza
+        $repository->remove($pizza , true);
+
+        //redirection vers la liste des pizzas
+        return $this->redirectToRoute('app_pizza_list');
+
+    }
+
+
+
+
 }
