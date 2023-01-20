@@ -55,7 +55,8 @@ class PizzaController extends AbstractController
      * @Route("/pizza/list" , name="app_pizza_list")
      */
     public function list (PizzaRepository $repository):Response{
-        $liste= $repository->findAll();
+        //recuperer la liste des pizza depuis la base de données
+        $liste= $repository->findAll(); //retourne une liste d'objets pizza
 
         // Retourne une instance de Response avec le contenue html
         // de notre template
@@ -102,5 +103,47 @@ class PizzaController extends AbstractController
 
 
         return $this->render('pizza/newPizza.html.twig');
+    }
+
+
+
+
+    /**
+     * @Route("/pizza/{id}/modifier" , name="app_pizza_update")
+     */
+    public function update (int $id, PizzaRepository $repository, Request $request):Response
+    {
+        //recuperer la pizza avec l'id reçu
+        $pizza= $repository->find($id);
+
+
+        // 1. Tester si le formulaire à été envoyé
+        if ($request->isMethod('post')) {
+
+            // 2. Récupérer les données du formulaire
+                $name=$request->request->get('name');
+                $price= $request->request->get('price');
+                $description= $request->request->get('description');
+                $imageUrl= $request->request->get('imageUrl');
+
+
+            // 3. Modifier la pizza avec les données du formulaire
+                $pizza->setName($name);
+                $pizza->setPrice($price);
+                $pizza->setDescription($description);
+                $pizza->setImageUrl($imageUrl);
+
+
+            // 4. Utiliser le repository afin d'enregistrer la pizza en base de données
+                $repository->add($pizza, true); // le true c'est pour mettre à jour la base de données directement
+
+
+            // 5. Si tout c'est bien passé, rediriger vers la liste des pizzas
+                return $this->redirectToRoute('app_pizza_list');
+        }
+
+        return $this->render('pizza/updatePizza.html.twig', [
+            'pizza'=> $pizza,
+        ]);
     }
 }
