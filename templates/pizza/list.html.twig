@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PizzaController!{% endblock %}
+
+{% block body %}
+
+
+    {% for l in liste %}
+        <h1> {{l.name}} </h1>
+        <p> {{l.price}} </p>
+    {% endfor %}
+    
+    {% block navigation %} 
+    <ul>
+ <li>
+ <a href="#">Menu 1</a>
+ </li>
+ <li>
+ <a href="#">Menu 2</a>
+ </li>
+ <li>
+ <a href="#">Menu 3</a>
+ </li>
+ </ul>
+     {% endblock %}
+
+{% endblock %}
