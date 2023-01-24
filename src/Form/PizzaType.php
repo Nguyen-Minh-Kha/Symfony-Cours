@@ -15,19 +15,28 @@ class PizzaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+
+       
+
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'label' => 'Nom de la pizza',
+                'required'=> true,
+            ])
             ->add('price', MoneyType::class)
             ->add('description', TextType::class)
             ->add('imageUrl', UrlType::class)
-            ->add('submit', SubmitType::class)
+            ->add('Envoyer', SubmitType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+
         $resolver->setDefaults([
             'data_class' => Pizza::class,
+            
         ]);
     }
 }

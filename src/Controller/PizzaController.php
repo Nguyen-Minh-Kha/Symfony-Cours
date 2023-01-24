@@ -177,14 +177,15 @@ class PizzaController extends AbstractController
     {
         //création de l'objet PHP
         $pizza= new Pizza();
+
         //création du formulaire
-        $form= $this->createForm(PizzaType::class , $pizza);
+        $form= $this->createForm(PizzaType::class , $pizza );
         //remplissage du formulaire et de l'objet php avec la requete
         $form->handleRequest($request); 
 
         //si le formulaire est envoyé et les données sont valides
         if($form->isSubmitted() && $form->isValid()){
-            //reuperation de l'objet validé et remplie pas le formulaire
+            //recuperation de l'objet validé et remplie pas le formulaire
             $validPizza = $form->getData();
             //enregistrer les donnée dans la bd
             $repository->add($validPizza, true);
@@ -212,4 +213,40 @@ class PizzaController extends AbstractController
     }
 
 
+
+
+
+     /**
+     * @Route("/pizza/updateForm/{id}" , name="app_pizza_updateForm")
+     */
+    public function updateForm (int $id, PizzaRepository $repository, Request $request):Response
+    {
+        //recuperer les données de la pizza du id
+        $pizza= $repository->find($id);
+//--------------Même partie que la création-------------------
+        //création du formulaire
+        $form= $this->createForm(PizzaType::class , $pizza );
+        //remplissage du formulaire et de l'objet php avec la requete
+        $form->handleRequest($request); 
+
+        //si le formulaire est envoyé et les données sont valides
+        if($form->isSubmitted() && $form->isValid()){
+            //recuperation de l'objet validé et remplie pas le formulaire
+            $validPizza = $form->getData();
+            //enregistrer les donnée dans la bd
+            $repository->add($validPizza, true);
+
+            //redirection vers la liste des pizzas
+            return $this->redirectToRoute('app_pizza_list');
+        }
+
+        //récuperation de la view du formulaire
+        $formView= $form->createView();
+
+        //affichage dans le template
+        return $this->render('pizza/updateForm.html.twig' , [
+            'form' => $formView,
+        ]);
+
+    }
 }
