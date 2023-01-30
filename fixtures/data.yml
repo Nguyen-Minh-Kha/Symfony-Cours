@@ -5,7 +5,7 @@ App\Entity\Ingredient:
     quantity: 1.00
 
 App\Entity\Pizza:
-  pizza1:
-    name: "Régina"
+  pizza{1..50}:
+    name: "<word()>"
     price: 13.00
     ingredients: ["@ingredient*"]

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des pizzas{% endblock %}
+
+{% block body %}
+
+
+    {% for l in pizzas %}
+        <h1> {{l.name}} </h1>
+        <p> {{l.price}} </p>
+        <p> {{l.description}} </p>
+        <a href=" {{  path('app_pizza_update', {
+                   'id': l.id
+                     }) }}"> Modifier </a>
+
+         <a href=" {{  path('app_pizza_remove', {
+            'id': l.id
+        }) }}"> supprimer </a>
+
+    {% endfor %}
+
+
+
+{% endblock %}

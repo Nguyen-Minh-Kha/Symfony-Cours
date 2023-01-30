@@ -63,4 +63,16 @@ class PizzaRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+    Public function findLastTen(): array //
+    {
+        $queryBuilder = $this->createQueryBuilder('pizza');
+
+        return $queryBuilder-> orderBy('pizza.id', 'DESC') //
+                            -> setMaxResults(10) //
+                            -> getQuery()
+                            -> getResult();
+
+    }
 }
