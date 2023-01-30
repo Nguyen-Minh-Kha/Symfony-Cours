@@ -26,7 +26,7 @@ class PizzaController extends AbstractController
         // le repo va l'ajouter à la base de données
         $pizzaRepository->add($pizza ,true);
 
-        //response va afficher le msg passé en paramétre
+        //response va affiaddcher le msg passé en paramétre
         return new Response("La pizza avec l'id {$pizza->getId()} à bien été enregistré");
     }
 

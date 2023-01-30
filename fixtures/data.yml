@@ -1,0 +1,11 @@
+App\Entity\Ingredient:
+  ingredient{1..100}:
+    name: "<word()>"
+    price: "<randomFloat(2, 10, 30)>"
+    quantity: 1.00
+
+App\Entity\Pizza:
+  pizza1:
+    name: "Régina"
+    price: 13.00
+    ingredients: ["@ingredient*"]
